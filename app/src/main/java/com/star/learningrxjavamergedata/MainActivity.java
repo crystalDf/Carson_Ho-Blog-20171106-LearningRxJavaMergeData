@@ -86,13 +86,25 @@ public class MainActivity extends AppCompatActivity {
                     StringBuilder result = new StringBuilder();
 
                     for (Contributor contributor : contributors) {
-                        result.append(contributor.login).append(" (").append(contributor.contributions).append(")").append("\n");
+                        result
+                                .append(contributor.login)
+                                .append(" (")
+                                .append(contributor.contributions)
+                                .append(")")
+                                .append("\n");
                     }
 
-                    result.append(" & ").append("\n");
+                    result
+                            .append(" & ")
+                            .append("\n");
 
                     for (HtmlUrl htmlUrl : htmlUrls) {
-                        result.append(htmlUrl.id).append(" (").append(htmlUrl.html_url).append(")").append("\n");
+                        result
+                                .append(htmlUrl.id)
+                                .append(" (")
+                                .append(htmlUrl.html_url)
+                                .append(")")
+                                .append("\n");
                     }
 
                     return result.toString();
