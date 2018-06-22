@@ -79,36 +79,37 @@ public class MainActivity extends AppCompatActivity {
         Observable<List<HtmlUrl>> htmlUrlsObservable =
                 github.htmlUrls(OWNER, REPO);
 
-        Observable.zip(contributorsObservable.subscribeOn(Schedulers.io()),
-                htmlUrlsObservable.subscribeOn(Schedulers.io()),
-                (contributors, htmlUrls) -> {
+        Observable
+                .zip(contributorsObservable.subscribeOn(Schedulers.io()),
+                        htmlUrlsObservable.subscribeOn(Schedulers.io()),
+                        (contributors, htmlUrls) -> {
 
-                    StringBuilder result = new StringBuilder();
+                            StringBuilder result = new StringBuilder();
 
-                    for (Contributor contributor : contributors) {
-                        result
-                                .append(contributor.login)
-                                .append(" (")
-                                .append(contributor.contributions)
-                                .append(")")
-                                .append("\n");
-                    }
+                            for (Contributor contributor : contributors) {
+                                result
+                                        .append(contributor.login)
+                                        .append(" (")
+                                        .append(contributor.contributions)
+                                        .append(")")
+                                        .append("\n");
+                            }
 
-                    result
-                            .append(" & ")
-                            .append("\n");
+                            result
+                                    .append(" & ")
+                                    .append("\n");
 
-                    for (HtmlUrl htmlUrl : htmlUrls) {
-                        result
-                                .append(htmlUrl.id)
-                                .append(" (")
-                                .append(htmlUrl.html_url)
-                                .append(")")
-                                .append("\n");
-                    }
+                            for (HtmlUrl htmlUrl : htmlUrls) {
+                                result
+                                        .append(htmlUrl.id)
+                                        .append(" (")
+                                        .append(htmlUrl.html_url)
+                                        .append(")")
+                                        .append("\n");
+                            }
 
-                    return result.toString();
-                })
+                            return result.toString();
+                        })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> Log.d(TAG, "最终接收到的数据是: " + s),
                         throwable -> Log.d(TAG, "失败"));
